@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Interplanar Angle</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+    </script>
+    <link rel="stylesheet" href="style.css" />
+
+
+</head>
+
+<body>
+
+    <h1> Interplanar Angle LaTeX Calculator</h1>
+    <div class="container">
+        <div class="spacing1">
+            Plane 1
+        </div>
+        <div class="spacing2">
+            h : &nbsp;<input type="text" id="h1" value="1">
+            k: &nbsp;<input type="text" id="k1" value="1">
+            l: &nbsp;<input type="text" id="l1" value="1">
+        </div>
+    </div>
+    <div class="container">
+        <div class="spacing1">
+            Plane 2
+        </div>
+        <div class="spacing2">
+            h: &nbsp;<input type="text" id="h2" value="1">
+            k: &nbsp;<input type="text" id="k2" value="1">
+            l: &nbsp;<input type="text" id="l2" value="1">
+        </div>
+    </div>
+
+    <div class="container">
+        a: &nbsp;<input type="text" id="a" value="1" style="width: 100px">
+        c: &nbsp;<input type="text" id="c" value="1" style="width: 100px">
+    </div>
+
+    <div class="container">
+        <label for="structure">Choose a Lattice:</label>
+        <select name = "structure" id = "struct" > 
+            <option value="cub", selected="selected"> Cubic</option>
+            <option value ="hex"> Hexagonal</option>
+            <option value ="tet"> Tetragonal</option>
+        </select>
+        <div class="spacing2">
+
+        </div>
+    </div>
+    <div class="container">
+        <button id="submit">Generate Latex</button>
+    </div>
+    <div id="contentArea">
+
+    </div>
+
+    <script src="latexGen.js"></script>
+
+</body>
+<footer>
+    Sorry, I did not care to make this page all pretty
+</footer>
+
+</html>

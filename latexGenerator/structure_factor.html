@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Structure Factor</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+    </script>
+    <link rel="stylesheet" href="style.css" />
+
+    
+</head>
+
+<body>
+    <h1> Structure Factor Calculator and Generator</h1>
+    <p> Automatically calcualtes and writes out process for calculating structure factors</p>
+    <p> Built using JavaScript, LaTeX rendering done by MathJax2.7.1</p>
+    <hr>
+
+    Coords:
+    <br> <textarea id="coords" type="text" name="coords" rows="8" cols="120">
+Co: (1/3, 2/3, 1/6), (1,1,1/2), (2/3, 1/3, 5/6)
+O: (0, 0, 0.23958700), (2/3,1/3, 0.09374633), (2/3, 1/3, 0.57292033), (1/3, 2/3, 0.42707967),(1/3, 2/3, 0.90625367), (0,0,0.76041300)
+Li: (0,0,0), (2/3, 1/3, 1/3), (1/3,2/3, 2/3)
+</textarea><br>
+    Reflection:
+    <br> <textarea id="reflections" type="text" name="ref" rows="8" cols="120">
+(1,0,4), (-2, 1,0), (0, 0, 1), (0, 0, 2), (0, 0, 3), (0, 0, 4), (1, 0, 0), (1, 0, 1), 
+(1, 0, 2), (1, 0, 3), (2, 1, 0), (1, 1, 1), (1, 1, 2), (1, 1, 3), (2, 0, 0), (2, 0, 1),
+(2, 0, 2), (2, 0, 3), (2, 1, 0), (2, 1, 1), (2, 1, 2), (2, 1, 3), (3, 0, 0), (3, 0, 1),
+(3, 0, 2)</textarea><br>
+    <button id="submit" type="submit">Submit</button>
+
+
+
+    <br><br>
+    <hr>
+
+    <h2>Example Input Format: </h2>
+    bad format will make it fail.
+    <br><br>
+    <h3>Coords (New line denotes new element): </h3>
+    ElementName : (0,0,0), (.5,.5,.5)<br>
+    ElementName2: (.25, .25, .25), (.75, .75, .75)
+    <br><br>
+    <h3>Reflections:</h3>
+    (0,0,0), (1,1,1), (2,2,2)
+
+    <br>
+    <br>
+    <hr>
+
+    <h2> <u>Latex Rendered Code:</u></h2>
+    <a id="download">download LaTeX</a>
+    <div id="contentArea">
+
+    </div>
+    <div id="hiddenArea" style="visibility:hidden">
+
+    </div>
+    <div id="editor"></div>
+
+    <script src="generator.js"></script>
+    <script src="downloader.js"></script>
+
+</body>
+<footer>
+    Sorry, I did not care to make this page all pretty
+</footer>
+
+</html>
