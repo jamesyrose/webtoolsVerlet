@@ -53,6 +53,22 @@ function createLatex(){
         return tetragonalCalc(p1, p2, a, c)
     }else if (struc == "cub"){
         return cubicCalc(p1, p2);
+    }else if (struc == "mono"){
+        try{
+            var a = document.getElementById("a").value;
+            var b = document.getElementById("b").value;
+            var c = document.getElementById("c").value;
+            var beta = document.getElementById("beta").value;
+            a = parseFloat(a)
+            b = parseFloat(b)
+            c = parseFloat(c)
+            beta = parseFloat(beta)
+
+        }catch{
+            console.log("Error")
+            return "ERROR: Tetragonal lattice parameters are not real numbers"
+        }
+        return monoCalc(p1, p2, a, b, c, beta)
     }else{
         return "No Lattice Type"
     }
@@ -118,9 +134,48 @@ function tetragonalCalc(p1, p2, a, c){
     // Full Eq.
     code += `&= \\hspace{0.2cm} \\frac{\\frac{${p1[0]} \\cdot ${p2[0]} + ${p1[1]}\\cdot ${p2[1]}}{${a}^2} + \\frac{${p1[2]}\\cdot ${p2[2]}}{${c}^2}}{\\sqrt{\\frac{${p1[0]}^2 + ${p1[1]}^2}{${a}^2} + \\frac{${p1[2]}^2}{${c}^2}} \\sqrt{\\frac{${p2[0]}^2 + ${p2[1]}^2}{${a}^2} + \\frac{${p2[2]}^2}{${c}^2}}}\\\\`
     // Simplified Numerator and Denom
+    p1[0] = p1[0] / a
+    p1[1] = p1[1] / a
+    p1[2] = p1[2] / c
+    p2[0] = p2[0] / a
+    p2[1] = p2[1] / a
+    p2[2] = p2[2] / c
     var numer = dotProd(p1, p2);
     var p1InnerMag = dotProd(p1, p1)
     var p2InnerMag = dotProd(p2, p2)
+    code += `&= \\hspace{0.2cm} \\frac{${numer}}{\\sqrt{${p1InnerMag}}\\sqrt{${p2InnerMag}}}\\\\`
+    //  Computed Full Fraction
+    var denom = Math.sqrt(p1InnerMag) * Math.sqrt(p2InnerMag)
+    code += `&= \\hspace{0.2cm} \\frac{${numer}}{${denom.toFixed(8)}}\\\\`
+    // final eq relation
+    var rhs = numer/denom
+    console.log(rhs)
+    if ((rhs > 1) && (rhs < 1.0005)){
+        // Rounding issues with calcs
+        rhs = 1
+    }else if (isNaN(rhs)){ // 0/0 situation
+        rhs = 0
+    }
+    rhs = rhs.toFixed(5)
+    code += `cos(\\theta) &= \\hspace{0.2cm} ${rhs}\\\\`
+    // final 
+    console.log(rhs);
+    code += `\\theta &= \\hspace{0.2cm} ${Math.acos(rhs) * 360 / (2 * Math.PI)}^{\\circ} \\\\`
+    return "\\begin{align*}\\\\" +code + "\\end{align*}";
+}
+
+
+
+function monoCalc(p1, p2, a, b, c, beta){
+    // Header
+    var code = "cos(\\theta) &= \\hspace{0.2cm} \\frac{\\frac{h_1 h_2}{a^2} + \\frac{k_1 k_2 sin^2(\\beta)}{b^2} + \\frac{l_1 l_2}{c^2} - \\frac{(h_1 l_2 + h_2 l_1) cos(\\beta)}{a c}}{\\sqrt{ \\frac{h_1^2}{a^2} + \\frac{k_1^2 sin^2(\\beta)}{b^2} + \\frac{l_1 ^2}{c^2} - \\frac{2 h_1 l_1  cos(\\beta)}{a c} } \\sqrt{\\frac{h_2^2}{a^2} + \\frac{k_2^2 sin^2(\\beta)}{b^2} + \\frac{l_2 ^2}{c^2} - \\frac{2 h_2 l_2  cos(\\beta)}{a c}}}\\\\"
+    // Full Eq.
+code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + \\frac{${p1[1]} \\cdot ${p2[1]} sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} \\cdot ${p2[2]}}{${c}^2} - \\frac{(${p1[0]} \\cdot ${p2[2]} + ${p2[0]}  \\cdot${p1[2]}) cos(${beta})}{${a} \\cdot ${c}}}{\\sqrt{ \\frac{${p1[0]}^2}{${a}^2} + \\frac{${p1[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p1[0]}  \\cdot ${p1[2]}   \\cdot cos(${beta})}{${a}\\cdot ${c}} } \\sqrt{\\frac{${p2[0]}^2}{${a}^2} + \\frac{${p2[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p2[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p2[0]} \\cdot ${p2[2]}  \\cdot cos(${beta})}{${a} \\cdot ${c}}}}\\\\`
+    // Simplified Numerator and Denom
+    var rad = beta / 360 * 2 * Math.PI ;
+    var numer = p1[0] * p2[0] / a ** 2 + p1[1] * p2[1] * Math.sin(rad) ** 2  / b ** 2 + p1[2] * p2[2] / c ** 2 - ((p1[0] * p2[2] + p2[0] * p1[2]) * Math.cos(rad) / (a * c))
+    var p1InnerMag = p1[0] **2 / a ** 2 + p1[1] **2  * Math.sin(rad) ** 2  / b ** 2 + p1[2]**2 / c ** 2 - ((p1[0] * p1[2] + p1[0] * p1[2]) * Math.cos(rad) / (a * c))
+    var p2InnerMag = p2[0] **2 / a ** 2 + p2[1] **2  * Math.sin(rad) ** 2  / b ** 2 + p2[2]**2 / c ** 2 - ((p2[0] * p2[2] + p2[0] * p2[2]) * Math.cos(rad) / (a * c))
     code += `&= \\hspace{0.2cm} \\frac{${numer}}{\\sqrt{${p1InnerMag}}\\sqrt{${p2InnerMag}}}\\\\`
     //  Computed Full Fraction
     var denom = Math.sqrt(p1InnerMag) * Math.sqrt(p2InnerMag)
