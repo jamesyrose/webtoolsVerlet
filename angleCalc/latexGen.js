@@ -173,7 +173,7 @@ function monoCalc(p1, p2, a, b, c, beta){
 code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + \\frac{${p1[1]} \\cdot ${p2[1]} sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} \\cdot ${p2[2]}}{${c}^2} - \\frac{(${p1[0]} \\cdot ${p2[2]} + ${p2[0]}  \\cdot${p1[2]}) cos(${beta})}{${a} \\cdot ${c}}}{\\sqrt{ \\frac{${p1[0]}^2}{${a}^2} + \\frac{${p1[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p1[0]}  \\cdot ${p1[2]}   \\cdot cos(${beta})}{${a}\\cdot ${c}} } \\sqrt{\\frac{${p2[0]}^2}{${a}^2} + \\frac{${p2[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p2[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p2[0]} \\cdot ${p2[2]}  \\cdot cos(${beta})}{${a} \\cdot ${c}}}}\\\\`
     // Simplified Numerator and Denom
     var rad = beta / 360 * 2 * Math.PI ;
-    var numer = p1[0] * p2[0] / a ** 2 + p1[1] * p2[1] * Math.sin(rad) ** 2  / b ** 2 + p1[2] * p2[2] / c ** 2 - ((p1[0] * p2[2] + p2[0] * p1[2]) * Math.cos(rad) / (a * c))
+    var numer = p1[0] * p2[0] / a ** 2 + p1[1] * p2[1] * Math.sin(rad) ** 2  / b ** 2 + p1[2] * p2[2] / c ** 2 - ((p1[0] * p2[2] + p2[0] * p1[2]) * Math.cos(rad)  / (a * c))
     var p1InnerMag = p1[0] **2 / a ** 2 + p1[1] **2  * Math.sin(rad) ** 2  / b ** 2 + p1[2]**2 / c ** 2 - ((p1[0] * p1[2] + p1[0] * p1[2]) * Math.cos(rad) / (a * c))
     var p2InnerMag = p2[0] **2 / a ** 2 + p2[1] **2  * Math.sin(rad) ** 2  / b ** 2 + p2[2]**2 / c ** 2 - ((p2[0] * p2[2] + p2[0] * p2[2]) * Math.cos(rad) / (a * c))
     code += `&= \\hspace{0.2cm} \\frac{${numer}}{\\sqrt{${p1InnerMag}}\\sqrt{${p2InnerMag}}}\\\\`
