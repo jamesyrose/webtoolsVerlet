@@ -63,7 +63,7 @@ function createLatexSingle(p1 , p2){
         return tetragonalCalc(p1, p2, a, c)
     }else if (struc == "cub"){
         return cubicCalc(p1, p2);
-    }else if (struc == "mono"){
+    }else if (struc == "monob"){
         try{
             var a = document.getElementById("a").value;
             var b = document.getElementById("b").value;
@@ -78,7 +78,23 @@ function createLatexSingle(p1 , p2){
             console.log("Error")
             return "ERROR: Tetragonal lattice parameters are not real numbers"
         }
-        return monoCalc(p1, p2, a, b, c, beta)
+        return monobCalc(p1, p2, a, b, c, beta)
+    }else if (struc == "monog"){
+        try{
+            var a = document.getElementById("a").value;
+            var b = document.getElementById("b").value;
+            var c = document.getElementById("c").value;
+            var gamma = document.getElementById("gamma").value;
+            a = parseFloat(a)
+            b = parseFloat(b)
+            c = parseFloat(c)
+            gamma = parseFloat(gamma)
+
+        }catch{
+            console.log("Error")
+            return "ERROR: Tetragonal lattice parameters are not real numbers"
+        }
+        return monogCalc(p1, p2, a, b, c, gamma)
     }else{
         return "No Lattice Type"
     }
@@ -214,11 +230,11 @@ function tetragonalCalc(p1, p2, a, c){
 
 
 
-function monoCalc(p1, p2, a, b, c, beta){
+function monobCalc(p1, p2, a, b, c, beta){
     // Header
     var code = "cos(\\theta) &= \\hspace{0.2cm} \\frac{\\frac{h_1 h_2}{a^2} + \\frac{k_1 k_2 sin^2(\\beta)}{b^2} + \\frac{l_1 l_2}{c^2} - \\frac{(h_1 l_2 + h_2 l_1) cos(\\beta)}{a c}}{\\sqrt{ \\frac{h_1^2}{a^2} + \\frac{k_1^2 sin^2(\\beta)}{b^2} + \\frac{l_1 ^2}{c^2} - \\frac{2 h_1 l_1  cos(\\beta)}{a c} } \\sqrt{\\frac{h_2^2}{a^2} + \\frac{k_2^2 sin^2(\\beta)}{b^2} + \\frac{l_2 ^2}{c^2} - \\frac{2 h_2 l_2  cos(\\beta)}{a c}}}\\\\"
     // Full Eq.
-code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + \\frac{${p1[1]} \\cdot ${p2[1]} sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} \\cdot ${p2[2]}}{${c}^2} - \\frac{(${p1[0]} \\cdot ${p2[2]} + ${p2[0]}  \\cdot${p1[2]}) cos(${beta})}{${a} \\cdot ${c}}}{\\sqrt{ \\frac{${p1[0]}^2}{${a}^2} + \\frac{${p1[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p1[0]}  \\cdot ${p1[2]}   \\cdot cos(${beta})}{${a}\\cdot ${c}} } \\sqrt{\\frac{${p2[0]}^2}{${a}^2} + \\frac{${p2[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p2[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p2[0]} \\cdot ${p2[2]}  \\cdot cos(${beta})}{${a} \\cdot ${c}}}}\\\\`
+    code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + \\frac{${p1[1]} \\cdot ${p2[1]} sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} \\cdot ${p2[2]}}{${c}^2} - \\frac{(${p1[0]} \\cdot ${p2[2]} + ${p2[0]}  \\cdot${p1[2]}) cos(${beta})}{${a} \\cdot ${c}}}{\\sqrt{ \\frac{${p1[0]}^2}{${a}^2} + \\frac{${p1[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p1[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p1[0]}  \\cdot ${p1[2]}   \\cdot cos(${beta})}{${a}\\cdot ${c}} } \\sqrt{\\frac{${p2[0]}^2}{${a}^2} + \\frac{${p2[1]}^2 sin^2(${beta})}{${b}^2} + \\frac{${p2[2]} ^2}{${c}^2} - \\frac{2 \\cdot ${p2[0]} \\cdot ${p2[2]}  \\cdot cos(${beta})}{${a} \\cdot ${c}}}}\\\\`
     // Simplified Numerator and Denom
     var rad = beta / 360 * 2 * Math.PI ;
     var numer = p1[0] * p2[0] / a ** 2 + p1[1] * p2[1] * Math.sin(rad) ** 2  / b ** 2 + p1[2] * p2[2] / c ** 2 - ((p1[0] * p2[2] + p2[0] * p1[2]) * Math.cos(rad)  / (a * c))
@@ -245,6 +261,36 @@ code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + 
     return "\\begin{align*}\\\\" +code + "\\end{align*}";
 }
 
+function monogCalc(p1, p2, a, b, c, gamma){
+    // Header
+    var code = "cos(\\theta) &= \\hspace{0.2cm} \\frac{\\frac{h_1 h_2}{a^2} + \\frac{k_1 k_2 }{b^2} + \\frac{l_1 l_2 sin^2(\\gamma)}{c^2} - \\frac{(h_1 k_2 + h_2 k_1) cos(\\gamma)}{a b}}{\\sqrt{ \\frac{h_1^2}{a^2} + \\frac{k_1^2 }{b^2} + \\frac{l_1 ^2 sin^2(\\gamma)}{c^2} - \\frac{2 h_1 k_1  cos(\\gamma)}{a b} } \\sqrt{\\frac{h_2^2}{a^2} + \\frac{k_2^2 }{b^2} + \\frac{l_2^2 sin^2(\\gamma)}{c^2} - \\frac{2 h_2 k_2  cos(\\gamma)}{a b}}}\\\\"
+    // Full Eq.
+    code += `&= \\hspace{0.2cm}   \\frac{\\frac{${p1[0]}  \\cdot${p2[0]}}{${a}^2} + \\frac{${p1[1]} \\cdot ${p2[1]}}{${b}^2} + \\frac{${p1[2]} \\cdot ${p2[2]} \\cdot  sin^2(${gamma})}{${c}^2} - \\frac{(${p1[0]} \\cdot ${p2[1]} + ${p2[0]}  \\cdot${p1[1]}) cos(${gamma})}{${a} \\cdot ${b}}}{\\sqrt{ \\frac{${p1[0]}^2}{${a}^2} + \\frac{${p1[1]}^2 }{${b}^2} + \\frac{${p1[2]} ^2 sin^2(${gamma})}{${c}^2} - \\frac{2 \\cdot ${p1[0]}  \\cdot ${p1[1]}   \\cdot cos(${gamma})}{${a}\\cdot ${b}} } \\sqrt{\\frac{${p2[0]}^2}{${a}^2} + \\frac{${p2[1]}^2 }{${b}^2} + \\frac{${p2[2]} ^2 sin^2(${gamma})}{${c}^2} - \\frac{2 \\cdot ${p2[0]} \\cdot ${p2[1]}  \\cdot cos(${gamma})}{${a} \\cdot ${b}}}}\\\\`
+    // Simplified Numerator and Denom
+    var rad = gamma / 360 * 2 * Math.PI ;
+    var numer = p1[0] * p2[0] / a ** 2 + p1[1] * p2[1]  / b ** 2 + p1[2] * p2[2] * Math.sin(rad) ** 2/ c ** 2 - ((p1[0] * p2[1] + p2[0] * p1[1]) * Math.cos(rad)  / (a * b))
+    var p1InnerMag = p1[0] **2 / a ** 2 + p1[1] **2    / b ** 2 + p1[2]**2 * Math.sin(rad) ** 2/ c ** 2 - ((p1[0] * p1[1] + p1[0] * p1[1]) * Math.cos(rad) / (a * b))
+    var p2InnerMag = p2[0] **2 / a ** 2 + p2[1] **2   / b ** 2 + p2[2]**2 * Math.sin(rad) ** 2/ c ** 2 - ((p2[0] * p2[1] + p2[0] * p2[1]) * Math.cos(rad) / (a * b))
+    code += `&= \\hspace{0.2cm} \\frac{${numer}}{\\sqrt{${p1InnerMag}}\\sqrt{${p2InnerMag}}}\\\\`
+    //  Computed Full Fraction
+    var denom = Math.sqrt(p1InnerMag) * Math.sqrt(p2InnerMag)
+    code += `&= \\hspace{0.2cm} \\frac{${numer}}{${denom.toFixed(8)}}\\\\`
+    // final eq relation
+    var rhs = numer/denom
+    console.log(rhs)
+    if ((rhs > 1) && (rhs < 1.0005)){
+        // Rounding issues with calcs
+        rhs = 1
+    }else if (isNaN(rhs)){ // 0/0 situation
+        rhs = 0
+    }
+    rhs = rhs.toFixed(5)
+    code += `cos(\\theta) &= \\hspace{0.2cm} ${rhs}\\\\`
+    // final 
+    console.log(rhs);
+    code += `\\theta &= \\hspace{0.2cm} ${Math.acos(rhs) * 360 / (2 * Math.PI)}^{\\circ} \\\\`
+    return "\\begin{align*}\\\\" +code + "\\end{align*}";
+}
 
 function hexCalc(p1, p2, a, c){
     var code = "cos(\\theta) &= \\hspace{0.2cm} \\frac{h_1 h_2 + k_1 k_2 + \\frac{h_1 k_2 + h_2 k_1}{2} + \\frac{3a^2}{3c^2} l_1 l_2}"
