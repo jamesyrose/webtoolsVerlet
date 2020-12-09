@@ -2,8 +2,11 @@ var latex = document.getElementById("submit");
 var area = document.getElementById("contentArea");
 var hiddenArea = document.getElementById("hiddenArea");
 
+var planes1 = new Map();
+var planes2 = new Map();
+
 latex.onclick = function loadLatex() {
-    var latexCode = createLatex();
+    var latexCode = createLatexAll();
 
     area.innerHTML = latexCode
     // render latex
@@ -11,16 +14,23 @@ latex.onclick = function loadLatex() {
     
 }
 
-function createLatex(){
-    try{
-        var buff = getPlanes()
-        var p1 = buff[0]
-        var p2 = buff[1]
-    }catch (error){
-        return "ERROR: Planes are not real numbers"        
-    }   
+function createLatexAll(){ 
+    var html_latex = ""
+    for (var k1 in planes1){
+        p1 = planes1[k1]
+        for (var k2 in planes2){
+            p2 = planes2[k2]
+            latex = createLatexSingle(p1, p2)
+            html_latex += `Planes : (${p1.toString()}) (${p2.toString()})`
+            html_latex += latex
+        }
+    }
+    return html_latex;
+}
+
+
+function createLatexSingle(p1 , p2){  
     var struc = document.getElementById("struct").value;
-    console.log(struc)
     if (struc == "hex"){
         try{
             var a = document.getElementById("a").value;
@@ -95,6 +105,44 @@ function getPlanes(){
     return [plane1, plane2]
 }
 
+
+function addPlane(p) { 
+    h2 = document.getElementById(`h${p}`).value
+    k2 = document.getElementById(`k${p}`).value
+    l2 = document.getElementById(`l${p}`).value
+
+    var plane = [parseInt(h2), parseInt(k2), parseInt(l2)]
+    if (p == 1){ 
+        var name = `plane1${h2}${k2}${l2}`
+    }else { 
+        var name = `plane2${h2}${k2}${l2}`
+    }
+    // check if exists 
+    while (true){ 
+        var buff = document.getElementById(name)
+        if (buff == null){ 
+            break;
+        }
+        name = name + "1"
+    }
+    if (p == 1){ 
+        planes1[name] = plane;
+        
+    }else{ 
+        planes2[name] = plane;
+    }
+    var code = `<div id = '${name}'> (${plane.join(' ')}) <button onclick="removePlane('${name}')">Remove</  </div> `
+    var buff = document.getElementById(`added_planes${p}`)
+    buff.innerHTML = buff.innerHTML + code
+}
+
+function removePlane(id) { 
+    console.log(id);
+    document.getElementById(id).remove()
+    delete planes1[id]
+    delete planes2[id]
+
+}
 
 function cubicCalc(p1, p2){
     // Header
