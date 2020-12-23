@@ -108,17 +108,13 @@ function create_full_eq(data, indicies = ["h", "k", "l"]) {
     // data should be a dictionary with key = element name and value = coordinates
     var new_line = " \\\\  & + "
     var eq = "F_{" + indicies.join("") + "} =& \\hspace{0.2cm} ";
-    var eq_s = "=& \\hspace{0.2cm} ";
     // Iterate over coordinates
     for (var k in data) {
         v = data[k]
-
         eq += create_term(k, v, indicies = indicies) + new_line
-        eq_s += create_term(k, v, indicies = indicies, simple = true) + new_line
     }
     eq = eq.substr(0, eq.length - new_line.length) + "\\\\"
-    eq_s = eq_s.substr(0, eq_s.length - new_line.length) + "\\\\"
-    return eq + eq_s
+    return eq
 }
 
 function create_term(name, coords, indicies, simple = false) {
