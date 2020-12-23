@@ -303,10 +303,16 @@ function create_simplified_term(name, coords, reflection) {
 
 
     // Final forms, line 5
-    if (Math.abs(real) < 1e-10) {
+    var cutoff = document.getElementById("forbidden").value
+    try{ 
+        cutoff = eval(cutoff)
+    }catch (error){
+        cutoff = 1e-10
+    }
+    if (Math.abs(real) < cutoff) {
         real = 0
     }
-    if (Math.abs(imag) < 1e-10) {
+    if (Math.abs(imag) < cutoff) {
         imag = 0
     }
     // Checking for 0 parts, drop if real or imag = 0
