@@ -1,3 +1,4 @@
+
 textarea {
     white-space: pre;
     overflow-wrap: normal;
@@ -9,4 +10,66 @@ footer{
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.row{
+  width: 100%;
+  display: inline-block;
+}
+
+.col{ 
+  width: 50%;
+  display: inline-block;
+  float: left;
+}
+
+.col10{
+  width: 10%;
+  text-align: right; 
+  display: inline-block;
+  float: left;
+}
+
+.col90{
+  width: 90%;
+  display: inline-block;
+  float: left;
+}
+
+
+.spacing1 {
+  width: 100%;
+  float: left;
+  display: inline;
+}
+.spacing2 {
+  width: 100%;
+  padding: 50px;
+  display: inline;
+
+}
+
+input {
+  display: inline;
+  margin-left:10px;
+  width: 50px;
+}
+
+.inputstuff{
+  padding: 5px;
+  margin-left: 50px;
+}
+
+button{
+  margin-left: 50px;
+  padding: 5px;
+  width: 100px;
+  height: 30px;
+}
+.bigbutton{
+  font-size: 22px;
+  margin-left: 50px;
+  padding: 5px;
+  width: 200px;
+  height: 50px;
 }
