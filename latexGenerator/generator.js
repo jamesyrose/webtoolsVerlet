@@ -1,11 +1,17 @@
-var latex = document.getElementById("submit");
-var area = document.getElementById("contentArea");
-var hiddenArea = document.getElementById("hiddenArea");
 
 
+var coordsInput = new Map();
+var planesInput = new Map();
+window.onload = function() {
+    // var latex = document.getElementById("submit");
 
-latex.onclick = function createLatex() {
+}
+
+function createLatex() {
     /* submit button */
+    var area = document.getElementById("contentArea");
+    var hiddenArea = document.getElementById("hiddenArea");
+
     var coords = fetchCoords();
     var reflections = fetchReflections();
 
@@ -20,6 +26,7 @@ latex.onclick = function createLatex() {
     a.href = "data:text/html," + latexCode;
 
 }
+
 
 
 function evaluateFraction(val) {
@@ -41,58 +48,37 @@ function evaluateFraction(val) {
 
 function fetchReflections() {
     /* 
-    Get and parse reflections from html
+    converts selection to list of tuples
     returns array
     */
-    var reflections = document.getElementById("reflections").value;
-    reflections = reflections.replace(/\s/g, ''); // remove spaces
-    var splitRef = reflections.split("),(");
-    var parsedRef = []
-    for (var i = 0; i < splitRef.length; i++) {
-        var ref = splitRef[i].replace(")", "").replace("(", "");
-        var vals = ref.split(",")
-        var buff = [];
-        for (var j = 0; j < vals.length; j++) {
-            buff.push(eval(vals[j]));
-        }
-        parsedRef.push(buff);
+    var refs  = []
+    for (var idkey in planesInput){
+        refs.push(planesInput[idkey])
     }
-    console.log(parsedRef)
-    return parsedRef
+    return refs
 }
 
 function fetchCoords() {
     /* 
-    Get and parse coordintes from html
+    converts coord map to useable map 
+    key = element
+    value = list of coords
     returns map
     */
-    var coords = document.getElementById("coords").value;
-    coords = coords.split("\n")
-    let map = new Map();
-    // Iterate over the rows each row = new element
-    for (var i = 0; i < coords.length; i++) {
-        var coord = coords[i].replace(/\s/g, ''); // remove spaces
-        // Check to make sure its key value format
-        if (coord.includes(":")) {
-            // split key value
-            var pair = coord.split(":");
-            var element = pair[0];
-            var points = pair[1].split("),(")
-            var eleCoords = []
-            // Iterate over value (coordinates)
-            for (var j = 0; j < points.length; j++) {
-                var point = points[j].replace(")", "").replace("(", "");
-                var buff = point.split(",")
-                var tup = [];
-                // Iterate over each coordinate and evaluate its value
-                for (var k = 0; k < buff.length; k++) {
-                    tup.push(evaluateFraction(buff[k]))
-                }
-                eleCoords.push(tup)
-            }
-            map[element] = eleCoords
+    var map = new Map()
+
+    for (var idkey in coordsInput){
+        var buff = coordsInput[idkey]
+        var ele = buff[0]
+        var coord = buff.slice(1,4);
+        if (map[ele] == undefined || map[ele] == null ) {
+            map[ele] = new Array();
+            map[ele].push(coord)
+        }else{
+            map[ele].push(coord)
         }
     }
+
     return map;
 }
 
@@ -120,13 +106,13 @@ function createLatexString(coords, reflections) {
 function create_full_eq(data, indicies = ["h", "k", "l"]) {
     // Creates the full term with just variable names;
     // data should be a dictionary with key = element name and value = coordinates
-    console.log(indicies)
     var new_line = " \\\\  & + "
     var eq = "F_{" + indicies.toString() + "} =& \\hspace{0.2cm} ";
     var eq_s = "=& \\hspace{0.2cm} ";
     // Iterate over coordinates
     for (var k in data) {
         v = data[k]
+
         eq += create_term(k, v, indicies = indicies) + new_line
         eq_s += create_term(k, v, indicies = indicies, simple = true) + new_line
     }
@@ -182,6 +168,8 @@ function exponentTermLatex(coords, indicies = ["h", "k", "l"], simple = false) {
         } else {
             if (coor.n == 1) {
                 term = `\\frac{${miller_idc}}{${coor.d}}`
+            } else if (coor.d == 1) {
+                term = `${coor.n} \\cdot ${miller_idc}`
             } else {
                 term = `\\frac{${coor.n} \\cdot ${miller_idc}}{${coor.d}}`
             }
@@ -386,4 +374,99 @@ function compute_exp(x) {
     }
     return [real, imag]
 
+}
+
+
+// Adding data
+function addAtom() { 
+    ele = document.getElementById("ele").value.trim()
+    x = document.getElementById(`x`).value
+    y = document.getElementById(`y`).value
+    z = document.getElementById(`z`).value
+
+    var data = [ele, evaluateFraction(x), evaluateFraction(y), evaluateFraction(z)]
+    var name = `${ele}${x}${y}${z}`
+    coordsInput[name] = data;
+        
+
+    var code = `
+    <div id = '${name}'> 
+        <div class="row"> 
+            <div class="col">  
+                ${data[0]}: (${x},${y},${z}) 
+            </div>
+            <div class="col">
+                <button onclick="removeAtom('${name}')">Remove</button>
+            </div> 
+        </div>
+    </div>`
+    var buff = document.getElementById(`added_atoms`)
+    buff.innerHTML = buff.innerHTML + code
+}
+
+function removeAtom(id) { 
+    document.getElementById(id).remove()
+    delete coordsInput[id]
+}
+
+
+
+function addPlane() { 
+    h2 = document.getElementById(`h`).value
+    k2 = document.getElementById(`k`).value
+    l2 = document.getElementById(`l`).value
+
+    var plane = [parseInt(h2), parseInt(k2), parseInt(l2)]
+    var name = `plane${h2}${k2}${l2}`
+
+    planesInput[name] = plane
+
+    var code = `
+    <div id = '${name}'> 
+        <div class="row"> 
+            <div class="col">  
+                (${plane.join(',')}) 
+            </div>
+            <div class="col">
+                <button onclick="removePlane('${name}')">Remove</ button> 
+            </div> 
+        </div>
+    </div>`
+    var buff = document.getElementById(`added_planes`)
+    buff.innerHTML = buff.innerHTML + code
+}
+
+function removePlane(id) { 
+    document.getElementById(id).remove()
+    delete planesInput[id]
+
+}
+
+function example(){
+    excoord = {
+        "Co": [['1/3', '2/3', '1/6'], [1,1,'1/2'], ['2/3', '1/3', '5/6']], 
+        "O": [[0, 0, 0.23958700], ['2/3','1/3', 0.09374633], ['2/3', '1/3', 0.57292033], ['1/3', '2/3', 0.42707967],['1/3', '2/3', 0.90625367], [0,0,0.76041300]],
+        "Li": [[0,0,0], ['2/3', '1/3', '1/3'], ['1/3','2/3', '2/3']]
+    }
+    exref = [[1,0,4], [-2, 1,0], [0, 0, 1], [0, 0, 2], [0, 0, 3], [0, 0, 4], [1, 0, 0], [1, 0, 1]]
+    for (var key in excoord){
+        document.getElementById("ele").value = key;
+        var points = excoord[key];
+        for (var i=0; i<points.length; i++){
+            var buff = points[i]
+            document.getElementById("x").value = buff[0];
+            document.getElementById("y").value = buff[1];
+            document.getElementById("z").value = buff[2];
+            addAtom()
+        }
+    }
+    for (var i=0; i<exref.length; i++){
+        var buff = exref[i];
+        document.getElementById("h").value = buff[0];
+        document.getElementById("k").value = buff[1];
+        document.getElementById("l").value = buff[2];
+        addPlane();
+    }
+    createLatex();
+    
 }

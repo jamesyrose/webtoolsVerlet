@@ -15,55 +15,152 @@
 
 <body>
     <h1> Structure Factor Calculator and Generator</h1>
-    <p> Automatically calcualtes and writes out process for calculating structure factors</p>
+    <p> Automatically calculates and writes out process for calculating structure factors</p>
     <p> Built using JavaScript, LaTeX rendering done by MathJax2.7.1</p>
+    <a href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/latexGenerator">Code</a>
+    <hr>
+    <div class="row"> 
+        <div class="col">
+            <div class="spacing1">
+                <h1>Coords:</h1>
+            </div>
+            <br>
+            <div class="spacing2">
+                <div class="inputstuff">
+                     &nbsp;<br>
+                </div>
+                <div class="inputstuff">
+                    <div class="row"> 
+                        <div class="col10" > 
+                            Element :
+                        </div>
+                        <div class="col90"> 
+                            <input type="text" id="ele" value="H">
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col10" > 
+                            x :
+                        </div>
+                        <div class="col90"> 
+                            <input type="text" id="x" value="0.5"><br>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col10" > 
+                            y :
+                        </div>
+                        <div class="col90"> 
+                            <input type="text" id="y" value="0.5"><br>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col10" > 
+                            z :
+                        </div>
+                        <div class="col90"> 
+                            <input type="text" id="z" value="0.5"><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button onclick="addAtom(1)">ADD</button>
+                    </div>
+                    <div class="row">
+                        <u><b>Added Atoms</b></u>
+                        <div id="added_atoms">
+    
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="spacing1">
+               <h1> Plane:  </h1>
+            </div>
+            <br>
+            <div class="spacing2">
+                <div class="inputstuff">
+                    <div class="row"> 
+                        <div class="col10" > 
+                            h : 
+                        </div>
+                        <div class="col90" > 
+                            <input type="text" id="h" value="1"><br>
+                        </div>  
+                    </div>
+                    <div class="row"> 
+                        <div class="col10" > 
+                            k : 
+                        </div>
+                        <div class="col90" > 
+                            <input type="text" id="k" value="1"><br>
+                        </div>  
+                    </div>                    
+                    <div class="row"> 
+                        <div class="col10" > 
+                            l : 
+                        </div>
+                        <div class="col90" > 
+                            <input type="text" id="l" value="1"><br>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <button onclick="addPlane()">ADD</button>
+                    </div>
+                    <div class="row">
+                        <u><b>Added Reflections</b></u>
+                        <div id="added_planes">
+            
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+    <br><br><br><br>
+    <hr> 
+    <div class="row">
+        <button  class="bigbutton" onclick="createLatex()">Generate LaTeX</button>
+        <button onclick="example()">Example Use</button>
+    </div>
+    <hr>
+    <div class="row">
+    
+        <h2>Input Notes</h2>
+        <p> 
+            Coordinates are the coordinates of each atom in the unit cell.<br>
+            Coordinates X,Y,Z  &#8712 (0, 1]<br>
+            Coordinates accept fractions and decimals.
+            <br>
+            Element is just and ID, it does not effect the computation;<br><br>
+            Planes are just h,k,l of refleciton planes, these must be whole numbers<br><br>
+            !!!! There is not a lot of error handling for inputs, so if something isnt working, check your inputs
+        </p>
+        <h2>Out Put Notes</h2>
+        <p>
+            The code trys to maintain fractions if fractions put in. It doesnt change computation, just aesthetics. <br>
+            You may download the LaTeX code and edit it to preference. 
+        </p>
+    </div>
     <hr>
 
-    Coords:
-    <br> <textarea id="coords" type="text" name="coords" rows="8" cols="120">
-Co: (1/3, 2/3, 1/6), (1,1,1/2), (2/3, 1/3, 5/6)
-O: (0, 0, 0.23958700), (2/3,1/3, 0.09374633), (2/3, 1/3, 0.57292033), (1/3, 2/3, 0.42707967),(1/3, 2/3, 0.90625367), (0,0,0.76041300)
-Li: (0,0,0), (2/3, 1/3, 1/3), (1/3,2/3, 2/3)
-</textarea><br>
-    Reflection:
-    <br> <textarea id="reflections" type="text" name="ref" rows="8" cols="120">
-(1,0,4), (-2, 1,0), (0, 0, 1), (0, 0, 2), (0, 0, 3), (0, 0, 4), (1, 0, 0), (1, 0, 1), 
-(1, 0, 2), (1, 0, 3), (2, 1, 0), (1, 1, 1), (1, 1, 2), (1, 1, 3), (2, 0, 0), (2, 0, 1),
-(2, 0, 2), (2, 0, 3), (2, 1, 0), (2, 1, 1), (2, 1, 2), (2, 1, 3), (3, 0, 0), (3, 0, 1),
-(3, 0, 2)</textarea><br>
-    <button id="submit" type="submit">Submit</button>
-
-
-
-    <br><br>
-    <hr>
-
-    <h2>Example Input Format: </h2>
-    bad format will make it fail.
-    <br><br>
-    <h3>Coords (New line denotes new element): </h3>
-    ElementName : (0,0,0), (.5,.5,.5)<br>
-    ElementName2: (.25, .25, .25), (.75, .75, .75)
-    <br><br>
-    <h3>Reflections:</h3>
-    (0,0,0), (1,1,1), (2,2,2)
-
-    <br>
-    <br>
-    <hr>
-
-    <h2> <u>Latex Rendered Code:</u></h2>
-    <a id="download">download LaTeX</a>
-    <div id="contentArea">
+    <div class="row">
+        <h2> <u>Latex Rendered Code:</u></h2>
+        <a id="download">download LaTeX code</a>
+        <div id="contentArea">
+    
+        </div>
+        <div id="hiddenArea" style="visibility:hidden">
+    
+        </div>
+        <div id="editor"></div>
 
     </div>
-    <div id="hiddenArea" style="visibility:hidden">
 
-    </div>
-    <div id="editor"></div>
-
+    <div style="height: 500px;"> </div>
     <script src="generator.js"></script>
-    <script src="downloader.js"></script>
 
 </body>
 <footer>
