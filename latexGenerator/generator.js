@@ -107,7 +107,7 @@ function create_full_eq(data, indicies = ["h", "k", "l"]) {
     // Creates the full term with just variable names;
     // data should be a dictionary with key = element name and value = coordinates
     var new_line = " \\\\  & + "
-    var eq = "F_{" + indicies.toString() + "} =& \\hspace{0.2cm} ";
+    var eq = "F_{" + indicies.join("") + "} =& \\hspace{0.2cm} ";
     var eq_s = "=& \\hspace{0.2cm} ";
     // Iterate over coordinates
     for (var k in data) {
@@ -216,7 +216,7 @@ function create_simplified_eq(data, reflection) {
             comp += "\\\\& + \\hspace{0.2cm}" + computed
         }
         if (simp_comp == "") {
-            simp_comp = simplified_computed.trim("+")
+            simp_comp = simplified_computed
         } else {
             if (simplified_computed.trim() != "") {
                 simp_comp += simplified_computed
@@ -228,6 +228,7 @@ function create_simplified_eq(data, reflection) {
     if (simp_comp.trim() == "") {
         simp_comp = "0 (Forbidden Reflection) \\\\"
     }
+    simp_comp = simp_comp.replace(new RegExp("^[\+]+|[\+]+$g"), "");
     // Formating
     main_func = `=& \\hspace{0.2cm}${main_func} \\\\`
     comp = `=& \\hspace{0.2cm}${comp} \\\\`
