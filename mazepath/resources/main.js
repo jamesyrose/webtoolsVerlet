@@ -140,28 +140,28 @@ async function rndMaze() {
     function getRandomArbitrary(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     }
-    async function updateCellColor(i, j, color, multi = 1) {
+    async function updateCellColor(i, j, color, multi = 1, pause=true) {
         document.getElementById(`${i}_${j}`).style.background = color
         $(`#${i}_${j}`).removeClass("scaleIn").addClass("scaleIn");
-        await sleep(((delay > 50) ? 25 : 5) * multi)
+        if (pause){ 
+            await sleep(((delay > 50) ? 10 : 1) * multi)
+        }
     }
     createGrid()
 
     rows = grid.length;
     cols = grid[0].length
 
-    for (let i = 0; i < rows; i += 2) {
-        for (let j = 0; j < cols; j++) {
-            grid[i][j] = "w";
-            await updateCellColor(i, j, "black")
-
-        }
-    }
-
     for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j += 2) {
-            grid[i][j] = "w";
-            await updateCellColor(i, j, "black")
+        for (let j = 0; j < cols; j++) {
+            if (i%2  == 0 ){
+                grid[i][j] = "w";
+                await updateCellColor(i, j, "black", pause=false)
+            }
+            if (j%2 == 0){
+                grid[i][j] = "w";
+                await updateCellColor(i, j, "black", pause=false)
+            }
         }
     }
 
@@ -194,18 +194,18 @@ async function rndMaze() {
             if (randNeighbor[0] === e[0]) { // Same row
                 if (randNeighbor[1] > e[1]) {
                     grid[e[0]][e[1] + 1] = 0;
-                    await updateCellColor(e[0], e[1] + 1, "var(--cell)", multi = 4)
+                    await updateCellColor(e[0], e[1] + 1, "var(--cell)", multi = 3)
                 } else {
                     grid[e[0]][e[1] - 1] = 0;
-                    await updateCellColor(e[0], e[1] - 1, "var(--cell)", multi = 4)
+                    await updateCellColor(e[0], e[1] - 1, "var(--cell)", multi = 3)
                 }
             } else { // Same column
                 if (randNeighbor[0] > e[0]) {
                     grid[e[0] + 1][e[1]] = 0;
-                    await updateCellColor(e[0] + 1, e[1], "var(--cell)", multi = 4)
+                    await updateCellColor(e[0] + 1, e[1], "var(--cell)", multi = 3)
                 } else {
                     grid[e[0] - 1][e[1]] = 0;
-                    await updateCellColor(e[0] - 1, e[1], "var(--cell)", multi = 4)
+                    await updateCellColor(e[0] - 1, e[1], "var(--cell)", multi = 3)
                 }
             }
             grid[randNeighbor[0]][randNeighbor[1]] = "v";
