@@ -1,0 +1,73 @@
+html {
+    color: white;
+}
+
+body {
+    background-color: black;
+}
+header { 
+    padding-top: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+}
+header h1 { 
+    font-size: 48px;
+}
+
+.row { 
+    width: 100%;
+    display: block;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.col {
+    float: left;
+    width: 50%;
+  }
+  
+.tool { 
+    width: 100%
+}
+.tool a { 
+    color: white;
+    font-size: 2em;
+    text-decoration: none;
+}
+.tool a:hover{ 
+    color: #22eaaa;
+}
+
+.select { 
+    width: 90%;
+    padding: 1% 5%;
+    margin: 0;
+}
+.select:hover { 
+    background-color: rgb(255,255,255, .25);
+}
+.select a { 
+    text-decoration: underline;
+}
+
+.desc { 
+    display: none;
+    font-size: 1.5em;
+    padding: 2.5% 2.5%;
+    margin-right: 10%;
+}
+
+.desc a{ 
+    font-size: 1.25em;
+    padding: 2%
+}
+
+.desc img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.content { 
+    width: 100%;
+}
