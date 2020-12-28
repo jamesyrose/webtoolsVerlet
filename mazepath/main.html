@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>Path Finding</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Coding Project by James Rose - Verlet" name="description" />
+    <meta content="James Rose" name="author" />
+
+
+
+    <!-- Favicon -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Maze Scripts-->
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="resources/main.js"></script>
+    <script src="resources/event.js"></script>
+    <script src="resources/solver.js"></script>
+    <script src="resources/node.js"></script>
+    <script src="resources/gradient.js"></script>
+
+
+</head>
+<!-- END HEAD -->
+
+<!-- BODY -->
+
+<body id="body">
+    <header id="header">
+        <div class="inputcol">
+            <h1>Path Finding Algorithms</h1>
+        </div>
+    </header>
+    <div id="infoBox">
+        <h1>Instructions</h1>
+        <h3>SHIFT + Left Click : Place Start Point</h3>
+        <h3>CTRL + Left Click : Place End Point</h3>
+        <h3>Left Click : Place Wall</h3>
+        <h3>Left Click + Drag : Draw Wall</h3>
+        <h3>SPACE + Left Click : Remove Walls</h3>
+        <button id="infoBtnClose" onclick="closeInfo()"> Close </button>
+    </div>
+    <div class="selectinbox" id="moveable">
+        <div id="handle"> </div>
+        <div id="stopBtn" class="row">
+            <button style="background: red" onclick="stopRunning()">
+                STOP
+            </button>
+        </div>
+        <div id="inputs">
+            <div class="row">
+                <select id="method">
+                    <option value="1">A* Manhattan</option>
+                    <option value="2">A* Euclidean</option>
+                    <option value="3">dijkstra</option>
+                    <option value="4">BFS</option>
+                    <option value="5">DFS</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <p>Size: <span id="sizeVal">25</span> </p>
+                <input class="slider" id="sizeDim" oninput="updateDim()" type="range" min="5" max="50" value="25"
+                    step="1">
+            </div>
+
+            <div class="row">
+                <p>Delay: <span id="delayVal">25</span> (ms)</p>
+                <input class="slider" id="delaySlider" oninput="updateDelay()" type="range" min="5" max="100" value="25"
+                    step="5">
+            </div>
+            <div class="row">
+                <button id="diag" onclick="updateDiagAllow()">
+                    <s>Diagonals</s>
+                </button>
+            </div>
+            <div class="row">
+                <button onclick="createGrid()">
+                    New Grid
+                </button>
+            </div>
+            <div class="row">
+                <button onclick="rndMaze()">
+                    Random
+                </button>
+            </div>
+            <div class="row">
+                <button onclick="solve()">
+                    Solve
+                </button>
+                <span onclick="openInfo();" class="info">&#9432;</span>
+            </div>
+        </div>
+    </div>
+    <table cellspacing="0" id="maze">
+
+    </table>
+
+</body>
+<!-- END BODY -->
+
+</html>

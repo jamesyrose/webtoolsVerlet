@@ -1,0 +1,188 @@
+:root {
+    --blue:rgb(0, 26, 255);
+    --blue2: rgb(0, 118, 139);
+    --green: #22eaaa;
+    --green2: rgb(94, 255, 0);
+    --darkblue: rgb(9, 17, 102);
+}
+
+html { 
+    font-family: Verdana;
+    color: white;
+    overflow-y: hidden;
+
+}
+
+body{ 
+    background-color: rgb(16, 17, 27);;
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    -ms-box-orient: vertical;
+}
+.warning{ 
+    z-index: 100;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0,0,0, .9);
+    color: white;
+    align-content: center;
+}
+.warning h1{ 
+    width: 100%;
+    font-size: 56px;
+    text-align: center;
+    font-weight: bold;
+    padding: 5%;
+}
+.warning button{
+    width: 60%;
+    margin-left: 20%; 
+    margin-right: 20%;
+    text-align: center;
+    font-size: 48px;
+    max-height: 100px;
+    padding: 20px;
+
+}
+
+header { 
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 1% 0;
+    text-align: center;
+}
+
+header h1{ 
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--green);
+    
+    font-size: 32px;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+header p{
+    font-size: 18px;
+}
+
+.row { 
+    width: 100%;
+    display: inline;
+}
+
+.inputcol{
+    top: 0;
+    padding: 0px 10px;
+    height: 50px;
+    display: inline-block;
+}
+
+
+select {
+    padding: 10px;
+    border: 0;
+    color: white;
+    background: var(--darkblue);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .bar {
+    width: 100%;
+    height: 0px;
+    background: linear-gradient(var(--blue), var(--blue2));
+  }
+  .bar:hover {
+    background: linear-gradient(var(--green), var(--green2));
+  }
+
+  .bar-chart {
+    flex-grow: 1;
+    display: inline-block;
+    height: 100%;
+    color: white;
+    margin-right: 1px;
+    text-align: center;
+    font-size: 0.5em;
+    border-radius: 50px;
+    align-content: center;
+  }
+
+ 
+  #viz { 
+      position:absolute;
+      display: table;
+      width: 100%;
+      height: 300px;
+      transform: rotate(180deg);
+      transform: scaleY(-1);
+
+  }
+
+  button { 
+      font-size: 1.25em;
+      font-weight: bold;
+      color: white;
+      height: 100%;
+      padding: 5px 10px;;
+      background-color: var(--darkblue);
+      border-radius: 5px;
+      border: 0;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+  }
+
+  button:hover { 
+      background-color: var(--green);
+      color: black;
+  }
+
+  .unsorted {
+    background: linear-gradient(rgb(87, 0, 0), rgb(126, 7, 7));
+  }
+  
+  .current {
+      background: linear-gradient(#FFFFFF, #FFFFFF);
+  }
+
+    
+  .curred {
+    background: linear-gradient(rgb(87, 0, 0), rgb(126, 7, 7));
+}
+
+.bigO{ 
+    background-color: rgb(0,0,0,.5);
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    padding: 2.5%;
+    font-size: 36px;
+    color: white;
+}
+
+.selectinbox{
+    font-size: 1.25em;
+    background-color: rgb(0,0,0,.75);
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    margin-left: 2%;
+    margin-top: 2%;
+    padding:  0.5% 2.5% ;
+    border-radius: 20px;
+    color: white;
+}
+
+#handle {
+    width: 100%;
+    height: 25px;
+    margin:  -0.5% -2.5% ;
+    cursor: move;
+    background-color: transparent;
+}

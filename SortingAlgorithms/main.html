@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sorting Algorithims</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Coding Project by James Rose - Verlet" name="description" />
+    <meta content="James Rose" name="author" />
+
+    <!-- Favicon -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Sort Scripts-->
+    <link href="resources/main.css" rel="stylesheet">
+    <script src="resources/main.js"></script>
+
+
+</head>
+<!-- END HEAD -->
+
+<body id="body">
+    <!--========== END HEADER ==========-->
+    <header id="header">
+        <div class="inputcol">
+            <h1>Sorting Algorithims</h1>
+        </div>
+    </header>
+    <div class="selectinbox" id="moveable">
+        <div id="handle"> </div>
+        <div class="row">
+            <p>Method</p>
+            <select id="method" onchange="timeComplexity()">
+                <option value="1">Selection Sort</option>
+                <option value="2">Bubble Sort</option>
+                <option value="3">Insertion Sort</option>
+                <option value="4">Heap Sort</option>
+                <option value="5">Merge Sort</option>
+                <option value="6">Quick Sort</option>
+                <option value="7">Pigeon Hole Sort</option>
+                <option value="8">Comb Sort</option>
+                <option value="9">Shell Sort</option>
+                <option value="10">Cocktail Sort</option>
+            </select>
+        </div>
+        <div class="row">
+            <p>Delay: <span id="delay-value">50</span> (ms) </p>
+            <input class="slider" id="delay-slider" oninput="updateDelay()" type="range" min="5" max="500" value="50"
+                step="5">
+        </div>
+
+        <div class="row">
+            <p>Size: <span id="size-value">200</span> bars </p>
+            <input class="slider" id="size-slider" onchange="rndArray()" oninput="updateSize()" name="size-slider"
+                type="range" min="50" max="500" step="20" value="200">
+        </div>
+        <br>
+        <div class="row">
+            <button onclick="rndArray()">
+                Shuffle
+            </button>
+            <button id="sort" onclick="sortArray()" style="background-color: var(--green); color: black">
+                Sort
+            </button>
+        </div>
+    </div>
+    <div id="bigO" class="bigO"></div>
+    <div id="warning" class="warning">
+        <h1>This page has flashing, blinking, & flickering.</h1>
+        <button onclick="warning()">I Understand</button>
+    </div>
+
+    <div id="viz">
+        <!--JS filled-->
+    </div>
+
+
+
+
+</body>
+
+<!-- END BODY -->
+
+</html>
