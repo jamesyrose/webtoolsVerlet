@@ -3,6 +3,11 @@
 
 <head>
     <title>Structure Factor</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Coding Project by James Rose - Verlet" name="description" />
+    <meta content="James Rose" name="author" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script type="text/javascript" id="MathJax" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
     </script>
@@ -10,7 +15,7 @@
     </script>
     <link rel="stylesheet" href="style.css" />
 
-    
+
 </head>
 
 <body>
@@ -19,7 +24,7 @@
     <p> Built using JavaScript, LaTeX rendering done by MathJax2.7.1</p>
     <a href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/latexGenerator">Code</a>
     <hr>
-    <div class="row"> 
+    <div class="row">
         <div class="col">
             <div class="spacing1">
                 <h1>Coords:</h1>
@@ -27,38 +32,38 @@
             <br>
             <div class="spacing2">
                 <div class="inputstuff">
-                     &nbsp;<br>
+                    &nbsp;<br>
                 </div>
                 <div class="inputstuff">
-                    <div class="row"> 
-                        <div class="col10" > 
+                    <div class="row">
+                        <div class="col10">
                             Element :
                         </div>
-                        <div class="col90"> 
+                        <div class="col90">
                             <input type="text" id="ele" value="H">
                         </div>
                     </div>
-                    <div class="row"> 
-                        <div class="col10" > 
+                    <div class="row">
+                        <div class="col10">
                             x :
                         </div>
-                        <div class="col90"> 
+                        <div class="col90">
                             <input type="text" id="x" value="0.5"><br>
                         </div>
                     </div>
-                    <div class="row"> 
-                        <div class="col10" > 
+                    <div class="row">
+                        <div class="col10">
                             y :
                         </div>
-                        <div class="col90"> 
+                        <div class="col90">
                             <input type="text" id="y" value="0.5"><br>
                         </div>
                     </div>
-                    <div class="row"> 
-                        <div class="col10" > 
+                    <div class="row">
+                        <div class="col10">
                             z :
                         </div>
-                        <div class="col90"> 
+                        <div class="col90">
                             <input type="text" id="z" value="0.5"><br>
                         </div>
                     </div>
@@ -68,43 +73,43 @@
                     <div class="row">
                         <u><b>Added Atoms</b></u>
                         <div id="added_atoms">
-    
-                        </div> 
+
+                        </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="col">
             <div class="spacing1">
-               <h1> Plane:  </h1>
+                <h1> Plane: </h1>
             </div>
             <br>
             <div class="spacing2">
                 <div class="inputstuff">
-                    <div class="row"> 
-                        <div class="col10" > 
-                            h : 
+                    <div class="row">
+                        <div class="col10">
+                            h :
                         </div>
-                        <div class="col90" > 
+                        <div class="col90">
                             <input type="text" id="h" value="1"><br>
-                        </div>  
+                        </div>
                     </div>
-                    <div class="row"> 
-                        <div class="col10" > 
-                            k : 
+                    <div class="row">
+                        <div class="col10">
+                            k :
                         </div>
-                        <div class="col90" > 
+                        <div class="col90">
                             <input type="text" id="k" value="1"><br>
-                        </div>  
-                    </div>                    
-                    <div class="row"> 
-                        <div class="col10" > 
-                            l : 
                         </div>
-                        <div class="col90" > 
+                    </div>
+                    <div class="row">
+                        <div class="col10">
+                            l :
+                        </div>
+                        <div class="col90">
                             <input type="text" id="l" value="1"><br>
-                        </div>  
+                        </div>
                     </div>
                     <div class="row">
                         <button onclick="addPlane()">ADD</button>
@@ -112,27 +117,28 @@
                     <div class="row">
                         <u><b>Added Reflections</b></u>
                         <div id="added_planes">
-            
+
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
     <br><br><br><br>
-    <hr> 
+    <hr>
     <div class="row">
-        <span style="padding-left: 50px;"> Forbidden Reflection Cutoff : &nbsp;<input id="forbidden" type="text" value="1e-10"> </span><br><br>
-        <button  class="bigbutton" onclick="createLatex()">Generate LaTeX</button>
+        <span style="padding-left: 50px;"> Forbidden Reflection Cutoff : &nbsp;<input id="forbidden" type="text"
+                value="1e-10"> </span><br><br>
+        <button class="bigbutton" onclick="createLatex()">Generate LaTeX</button>
         <button onclick="example()">Example Use</button>
     </div>
     <hr>
     <div class="row">
-    
+
         <h2>Input Notes</h2>
-        <p> 
+        <p>
             Coordinates are the coordinates of each atom in the unit cell.<br>
-            Coordinates X,Y,Z  &#8712 (0, 1]<br>
+            Coordinates X,Y,Z &#8712 (0, 1]<br>
             Coordinates accept fractions and decimals.
             <br>
             Element is just and ID, it does not effect the computation;<br><br>
@@ -142,7 +148,7 @@
         <h2>Out Put Notes</h2>
         <p>
             The code trys to maintain fractions if fractions put in. It doesnt change computation, just aesthetics. <br>
-            You may download the LaTeX code and edit it to preference. 
+            You may download the LaTeX code and edit it to preference.
         </p>
     </div>
     <hr>
@@ -151,10 +157,10 @@
         <h2> <u>Latex Rendered Code:</u></h2>
         <a id="download">download LaTeX code</a>
         <div id="contentArea">
-    
+
         </div>
         <div id="hiddenArea" style="visibility:hidden">
-    
+
         </div>
         <div id="editor"></div>
 

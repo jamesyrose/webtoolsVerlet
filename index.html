@@ -2,14 +2,115 @@
 <html>
 
 <head>
-    <title>Misc</title>
+    <title>Web Tools</title>
+    <meta content="James Rose" name="author" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/index.js"></script>
 </head>
 
 <body>
-    <h1> MAE251 </h1>
-    <a href="latexGenerator/structure_factor.html">LaTeX Generator For Structure Factors</a>   <br> 
-    <a href="angleCalc/plane_angle.html">LaTeX Generator for Interplanar Angles</a>
+    <header>
+        <h1>Misc Web Tools</h1>
+        <hr>
+    </header>
+    <div class="tool">
+        <div class="row">
+            <div class="col">
+                <h2>Tool</h2>
+                <div class="select">
+                    <div onmouseover="showDesc('sorting')">
+                        <a target="_blank" href="SortingAlgorithms/main.html">Sorting Algorithms</a> <br>
+                    </div>
+                </div>
+                <div class="select">
+                    <div onmouseover="showDesc('maze')">
+                        <a target="_blank" href="mazepath/main.html">Path Finding Algorithms</a>
+                    </div>
+                </div>
+                <div class="select">
+                    <div onmouseover="showDesc('structure_factor')">
+                        <a target="_blank" href="latexGenerator/structure_factor.html">Structure Factors Generator</a>
+                        <br>
+                    </div>
+                </div>
+                <div class="select">
+                    <div onmouseover="showDesc('plane_angle')">
+                        <a target="_blank"
+                            href="/home/rose/Documents/SCRIPT/webtoolsVerlet/SortingAlgorithms/main.html">Interplanar
+                            Angles Generator</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Description</h2>
+                <div class="content">
+                    <div id="sorting" class="desc">
+                        <h1> Sorting Algorithms</h1>
+                        <hr>
+                        Visualization of sorting algorithms.
+                        <br>
+                        Built using only HTML, CSS, and Javascript.
+                        <br>
+                        Algorithms included: Selection, Bubble, Insertion, Heap, Merge, Quick, Pigeonhole, comb, shell,
+                        and cocktail.
+                        <br> <br>
+                        <a target="_blank"
+                            href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/SortingAlgorithms"><i
+                                class="fa fa-github"></i></a>
+                        <a target="_blank" href="SortingAlgorithms/main.html"> Go To Visualization</a>
+                        <img src="images/sorting.png">
+                        <hr>
+                    </div>
+                    <div id="maze" class="desc">
+                        <h1>Pathfinding Algorithms</h1>
+                        <hr>
+                        Visualization of Pathfinding Algorithms
+                        <br>
+                        Builts using HTML, CSS, Javascript (inc. jQuery).
+                        <br>
+                        Algorithms included: A*, dijkstra, Breadth-first search (BFS), and Depth-first search (DFS).
+                        <br> <br>
+                        <a target="_blank" href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/mazepath"><i
+                                class="fa fa-github"></i></a>
+                        <a target="_blank" href="mazepath/main.html">Go To Tool</a>
+                        <img src="images/maze.png">
+                        <hr>
+                    </div>
+                    <div id="structure_factor" class="desc">
+                        <h1> Structure Factor</h1>
+                        <hr>
+                        Computes the Structure Factor and generates LaTeX code to show work.
+                        <br>
+                        Uses Javascript to compute and generate code.
+                        <br>
+                        Uses MathJax to render the LaTeX code in browser.
+                        <br> <br>
+                        <a target="_blank"
+                            href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/latexGenerator"><i
+                                class="fa fa-github"></i></a>
+                        <a target="_blank" href="latexGenerator/structure_factor.html">Go To Tool</a>
+                        <hr>
+                    </div>
+                    <div id="plane_angle" class="desc">
+                        <h1> Interplaner Angle</h1>
+                        <hr>
+                        Computes the Interplanar Angle for different lattices and generates LaTeX code to show work.
+                        <br>
+                        Uses Javascript to compute and generate code.
+                        <br>
+                        Uses MathJax to render the LaTeX code in browser.
+                        <br> <br>
+                        <a target="_blank" href="https://github.com/jamesyrose/webtoolsVerlet/tree/master/angleCalc"><i
+                                class="fa fa-github"></i></a>
+                        <a target="_blank" href="angleCalc/plane_angle.html">Go To Tool</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
